@@ -1,7 +1,9 @@
 import React from "react";
-import logo from "./logo.svg";
+import { Route, Link } from "react-router-dom";
 import "./App.css";
 import * as firebase from "firebase";
+import { ReactComponent } from "*.svg";
+import RoomList from "/components/RoomList";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -16,25 +18,19 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends ReactComponent {
+  render() {
+    return (
+      <div className="App">
+        <header>
+          <h1>Bloc Chat</h1>
+        </header>
+      </div>
+      <section id="room-list" >
+        <RoomList/>      
+      </section>
+    );
+  }
 }
 
 export default App;
