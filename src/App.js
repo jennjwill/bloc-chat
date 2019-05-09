@@ -1,9 +1,9 @@
-import React from "react";
+import React, { Component } from "react";
 import { Route, Link } from "react-router-dom";
 import "./App.css";
 import * as firebase from "firebase";
-import { ReactComponent } from "*.svg";
-import RoomList from "/components/RoomList";
+// import { ReactComponent } from "*.svg";
+import RoomList from "./components/RoomList";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -18,16 +18,15 @@ var firebaseConfig = {
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 
-class App extends ReactComponent {
+class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header>
-          <h1>Bloc Chat</h1>
-        </header>
-      </div>
-      <section id="room-list" >
-        <RoomList/>      
+      <section>
+        <div className="App">
+          <header>
+            <h1>Bloc Chat</h1>
+          </header>
+        </div>
       </section>
     );
   }
