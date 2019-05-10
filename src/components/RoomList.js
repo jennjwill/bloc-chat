@@ -57,7 +57,10 @@ class RoomList extends Component {
           <input
             type="submit"
             value="Submit"
-            onClick={e => this.createRoom(e)}
+            onClick={e => {
+              e.preventDefault();
+              this.createRoom(this.state.newRoomName);
+            }}
           />
         </form>
       </div>
