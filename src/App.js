@@ -4,6 +4,7 @@ import "./App.css";
 import * as firebase from "firebase";
 // import { ReactComponent } from "*.svg";
 import RoomList from "./components/RoomList";
+import MessageList from "./components/MessageList";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -19,6 +20,17 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeRoom: null
+    };
+  }
+
+  setActiveRoom(room) {
+    this.setState({ activeRoom: room });
+  }
+
   render() {
     return (
       <section>
@@ -27,8 +39,18 @@ class App extends Component {
             <h1>Bloc Chat</h1>
           </header>
           <aside id="side">
-            <RoomList firebase={firebase} />
+            <RoomList
+              firebase={firebase}
+              activeRoom={this.state.activeRoom}
+              setActiveRoom={this.setActiveRoom.bind(this)}
+            />
           </aside>
+          <main>
+            <MessageList
+              firebase={firebase}
+              activeRoom={this.state.activeRoom}
+            />
+          </main>
         </div>
       </section>
     );
