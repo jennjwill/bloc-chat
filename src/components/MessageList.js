@@ -11,18 +11,18 @@ class MessageList extends Component {
   }
 
   //not sure if this goes with what I'm needing to do yet or is for adding/removing messages
-  componentDidMount() {
-    this.messagesRef.on("child_added", snapshot => {
-      const message = snapshot.val();
-      message.key = snapshot.key;
-      this.setState({ messages: this.state.messages.concat(message) });
-    });
-  }
+  //   componentDidMount() {
+  //   this.messagesRef.on("child_added", snapshot => {
+  //      const message = snapshot.val();
+  //     message.key = snapshot.key;
+  //     this.setState({ messages: this.state.messages.concat(message) });
+  //  });
+  // }
 
   //same, not sure if this goes with what I'm needing to do yet or is for adding/removing messages
-  componentWillReceiveProps(nextProps) {
-    this.viewMessages(nextProps.activeRoom, nextProps.activeRoomMessages);
-  }
+  //componentWillReceiveProps(nextProps) {
+  //  this.viewMessages(nextProps.activeRoom, nextProps.activeRoomMessages);
+  // }
 
   viewMessages(activeRoom) {
     this.setState({
@@ -37,18 +37,16 @@ class MessageList extends Component {
       <main id="message-list-component">
         <h2 className="room-name">{this.props.activeRoom}</h2>
         <ul id="message-list">
-          {this.state.activeRoomMessages.map(message => (
+          {this.state.activeRoomMessages.map(messages => (
             <li
               className="message-details"
-              key={message.key}
-              onClick={() =>
-                this.props.viewMessages(message.roomId, message.key)
-              }
+              key={messages.key}
+              onClick={() => this.props.viewMessages(messages.key)}
             >
               helloMSG
-              <div className="username">{message.username}</div>
-              <div className="content">{message.content}</div>
-              <div className="sentAt">{message.sentAt}</div>
+              <div className="username">{messages.username}</div>
+              <div className="content">{messages.content}</div>
+              <div className="sentAt">{messages.sentAt}</div>
             </li>
           ))}
         </ul>

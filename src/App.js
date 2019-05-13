@@ -31,6 +31,11 @@ class App extends Component {
     this.setState({ activeRoom: room });
   }
 
+  //Do I need a
+  //setActiveRoomMessages() {
+  //  this.setState({ activeRoomMessages: messages });
+  //}
+
   render() {
     return (
       <section>
