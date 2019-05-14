@@ -11,23 +11,23 @@ class MessageList extends Component {
   }
 
   //not sure if this goes with what I'm needing to do yet or is for adding/removing messages
-  //   componentDidMount() {
-  //   this.messagesRef.on("child_added", snapshot => {
-  //      const message = snapshot.val();
-  //     message.key = snapshot.key;
-  //     this.setState({ messages: this.state.messages.concat(message) });
-  //  });
-  // }
+  componentDidMount() {
+    this.messagesRef.on("child_added", snapshot => {
+      const message = snapshot.val();
+      message.key = snapshot.key;
+      this.setState({ messages: this.state.messages.concat(message) });
+    });
+  }
 
   //same, not sure if this goes with what I'm needing to do yet or is for adding/removing messages
   //componentWillReceiveProps(nextProps) {
   //  this.viewMessages(nextProps.activeRoom, nextProps.activeRoomMessages);
   // }
 
-  viewMessages(activeRoom) {
+  viewMessages() {
     this.setState({
       activeRoomMessages: this.state.messages.filter(
-        messages => messages.roomId === activeRoom.key
+        messages => messages.roomId === this.props.activeRoom
       )
     });
   }
@@ -41,7 +41,7 @@ class MessageList extends Component {
             <li
               className="message-details"
               key={messages.key}
-              onClick={() => this.props.viewMessages(messages.key)}
+              onClick={() => this.props.viewMessages()}
             >
               helloMSG
               <div className="username">{messages.username}</div>
