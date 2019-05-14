@@ -27,7 +27,7 @@ class MessageList extends Component {
   viewMessages() {
     this.setState({
       activeRoomMessages: this.state.messages.filter(
-        messages => messages.roomId === this.props.activeRoom
+        messages => messages.roomId === this.props.activeRoom.key
       )
     });
   }
@@ -37,17 +37,14 @@ class MessageList extends Component {
       <main id="message-list-component">
         <h2 className="room-name">{this.props.activeRoom}</h2>
         <ul id="message-list">
-          {this.state.activeRoomMessages.map(messages => (
-            <li
-              className="message-details"
-              key={messages.key}
-              onClick={() => this.props.viewMessages()}
-            >
-              helloMSG
-              <div className="username">{messages.username}</div>
-              <div className="content">{messages.content}</div>
-              <div className="sentAt">{messages.sentAt}</div>
-            </li>
+          {this.viewMessages(this.state.activeRoom)}
+          => (
+          <li className="message-details" key={this.messages.key}>
+            helloMSG
+            <div className="username">{this.messages.username}</div>
+            <div className="content">{this.messages.content}</div>
+            <div className="sentAt">{this.messages.sentAt}</div> }
+          </li>
           ))}
         </ul>
       </main>
