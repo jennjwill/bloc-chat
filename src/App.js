@@ -23,7 +23,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeRoom: null
+      activeRoom: null,
+      messages: null
     };
   }
 
@@ -32,9 +33,9 @@ class App extends Component {
   }
 
   //Do I need a
-  //setActiveRoomMessages() {
-  //  this.setState({ activeRoomMessages: messages });
-  //}
+  setActiveRoomMessages(messages) {
+    this.setState({ activeRoomMessages: messages });
+  }
 
   render() {
     return (

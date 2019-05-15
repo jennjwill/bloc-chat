@@ -15,7 +15,9 @@ class MessageList extends Component {
     this.messagesRef.on("child_added", snapshot => {
       const message = snapshot.val();
       message.key = snapshot.key;
-      this.setState({ messages: this.state.messages.concat(message) });
+      this.setState({ messages: this.state.messages.concat(message) }, () => {
+        this.viewMessages(this.props.activeRoom);
+      });
     });
   }
 
@@ -37,14 +39,13 @@ class MessageList extends Component {
       <main id="message-list-component">
         <h2 className="room-name">{this.props.activeRoom}</h2>
         <ul id="message-list">
-          {this.viewMessages(this.state.activeRoom)}
-          => (
-          <li className="message-details" key={this.messages.key}>
-            helloMSG
-            <div className="username">{this.messages.username}</div>
-            <div className="content">{this.messages.content}</div>
-            <div className="sentAt">{this.messages.sentAt}</div> }
-          </li>
+          {this.state.activeRoomMessages.map(messages => (
+            <li className="message-details" key={this.messages.key}>
+              helloMSG
+              <div className="username">{this.messages.username}</div>
+              <div className="content">{this.messages.content}</div>
+              <div className="sentAt">{this.messages.sentAt}</div> }
+            </li>
           ))}
         </ul>
       </main>
