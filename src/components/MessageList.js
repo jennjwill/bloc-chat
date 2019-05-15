@@ -10,23 +10,22 @@ class MessageList extends Component {
     this.messagesRef = this.props.firebase.database().ref("messages");
   }
 
-  //not sure if this goes with what I'm needing to do yet or is for adding/removing messages
   componentDidMount() {
     this.messagesRef.on("child_added", snapshot => {
       const message = snapshot.val();
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat(message) }, () => {
-        this.viewMessages(this.props.activeRoom);
+        this.showMessages(this.props.activeRoom);
       });
     });
   }
 
-  //same, not sure if this goes with what I'm needing to do yet or is for adding/removing messages
-  //componentWillReceiveProps(nextProps) {
-  //  this.viewMessages(nextProps.activeRoom, nextProps.activeRoomMessages);
-  // }
+  //not sure if this goes with what I'm needing to do yet or is for adding/removing messages
+  componentWillReceiveProps(nextProps) {
+    this.showMessages();
+  }
 
-  viewMessages() {
+  showMessages() {
     this.setState({
       activeRoomMessages: this.state.messages.filter(
         messages => messages.roomId === this.props.activeRoom.key
@@ -39,12 +38,12 @@ class MessageList extends Component {
       <main id="message-list-component">
         <h2 className="room-name">{this.props.activeRoom}</h2>
         <ul id="message-list">
-          {this.state.activeRoomMessages.map(messages => (
-            <li className="message-details" key={this.messages.key}>
+          {this.state.activeRoomMessages.map(message => (
+            <li className="message-details" key={this.message.key}>
               helloMSG
-              <div className="username">{this.messages.username}</div>
-              <div className="content">{this.messages.content}</div>
-              <div className="sentAt">{this.messages.sentAt}</div> }
+              <div className="username">{this.message.username}</div>
+              <div className="content">{this.message.content}</div>
+              <div className="sentAt">{this.message.sentAt}</div> }
             </li>
           ))}
         </ul>
