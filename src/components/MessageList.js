@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+//import RoomList from "./components/RoomList";
 
 class MessageList extends Component {
   constructor(props) {
@@ -7,7 +8,7 @@ class MessageList extends Component {
       messages: [],
       activeRoomMessages: []
     };
-    this.messagesRef = this.props.firebase.database().ref("messages");
+    this.messagesRef = this.props.firebase.database().ref("Messages");
   }
 
   componentDidMount() {
@@ -15,7 +16,7 @@ class MessageList extends Component {
       const message = snapshot.val();
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat(message) }, () => {
-        this.showMessages(this.props.activeRoom);
+        this.showMessages();
       });
     });
   }
@@ -26,9 +27,11 @@ class MessageList extends Component {
   }
 
   showMessages() {
+    //console.log(message.roomId);
+    //console.log(this.props.activeRoom);
     this.setState({
       activeRoomMessages: this.state.messages.filter(
-        messages => messages.roomId === this.props.activeRoom.key
+        message => message.roomId === this.props.activeRoom
       )
     });
   }
