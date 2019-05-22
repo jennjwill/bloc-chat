@@ -5,6 +5,7 @@ import * as firebase from "firebase";
 // import { ReactComponent } from "*.svg";
 import RoomList from "./components/RoomList";
 import MessageList from "./components/MessageList";
+import User from "./components/User";
 
 // Your web app's Firebase configuration
 var firebaseConfig = {
@@ -24,7 +25,8 @@ class App extends Component {
     super(props);
     this.state = {
       activeRoom: null,
-      messages: null
+      messages: null,
+      user: null
     };
   }
 
@@ -37,12 +39,21 @@ class App extends Component {
     this.setState({ activeRoomMessages: messages });
   }
 
+  setUser(user) {
+    this.setUser({ setUser: user });
+  }
+
   render() {
     return (
       <section>
         <div className="App">
           <header>
             <h1>Bloc Chat</h1>
+            <User
+              firebase={firebase}
+              setUser={this.state.setUser.bind(this)}
+              user={this.state.user}
+            ></User>
           </header>
           <aside id="side">
             <RoomList
@@ -62,5 +73,6 @@ class App extends Component {
     );
   }
 }
+
 
 export default App;
