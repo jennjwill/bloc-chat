@@ -51,9 +51,9 @@ class App extends Component {
             <h1>Bloc Chat</h1>
             <User
               firebase={firebase}
-              setUser={this.state.setUser.bind(this)}
+              setUser={this.state.setUser}
               user={this.state.user}
-            ></User>
+            />
           </header>
           <aside id="side">
             <RoomList
@@ -73,6 +73,5 @@ class App extends Component {
     );
   }
 }
-
 
 export default App;
