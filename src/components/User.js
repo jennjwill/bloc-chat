@@ -55,7 +55,7 @@ class User extends Component {
     return (
       <main id="login-buttons">
         <div className="user-name">
-          {this.props.user ? this.props.userName : "guest"}
+          {this.props.user ? this.props.user : ""}
         </div>
         <button type="button" onClick={() => this.signIn()}>
           Sign in or create account
@@ -63,6 +63,7 @@ class User extends Component {
         <button type="button" id="user-sign-out" onClick={() => this.signOut()}>
           Log out
         </button>
+        <p>Hello: {this.props.displayName}</p>
       </main>
     );
   }

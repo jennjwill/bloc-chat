@@ -40,7 +40,11 @@ class App extends Component {
   }
 
   setUser(user) {
-    this.setUser({ setUser: user });
+    if (user) {
+      this.setState({ user: user.displayName });
+    } else {
+      this.setState({ user: "Guest" });
+    }
   }
 
   render() {
@@ -51,8 +55,8 @@ class App extends Component {
             <h1>Bloc Chat</h1>
             <User
               firebase={firebase}
-              setUser={this.state.setUser}
-              user={this.state.user}
+              setUser={e => this.setUser(e)}
+              displayName={this.state.user}
             />
           </header>
           <aside id="side">
