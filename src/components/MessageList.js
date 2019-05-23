@@ -18,6 +18,25 @@ class MessageList extends Component {
     });
   }
 
+  createMessage(newMessage) {
+    this.messagesRef.push({
+      content: newMessage,
+      roomId: this.props.activeRoom,
+      sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
+      //username: this.state.user
+    });
+
+    this.setState({ newMessage: "" });
+  }
+
+  handleChange(e) {
+    this.setState({ newMessage: e.target.value });
+  }
+
+  handleSubmit(e) {
+    this.createMessage(this.state.newMessage);
+  }
+
   render() {
     return (
       <main id="message-list-component">
@@ -33,6 +52,27 @@ class MessageList extends Component {
               </li>
             ))}
         </ul>
+        <div>
+          <form id="create-new-message" onSubmit={e => this.handleSubmit(e)}>
+            <input
+              id="newMessageInput"
+              type="text-field"
+              placeholder="Write your message here..."
+              value={this.state.newMessage}
+              onChange={this.handleChange.bind(this)}
+            />
+            <br />
+            <input
+              id="newMessageSubmit"
+              type="submit"
+              value="Send"
+              onClick={e => {
+                e.preventDefault();
+                this.createMessage(this.state.newMessage);
+              }}
+            />
+          </form>
+        </div>
       </main>
     );
   }
