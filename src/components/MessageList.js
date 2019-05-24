@@ -13,6 +13,20 @@ class MessageList extends Component {
   componentDidMount() {
     this.messagesRef.on("child_added", snapshot => {
       const message = snapshot.val();
+      let date = message.hasOwnProperty("sentAt")
+        ? new Date(message.sentAt)
+        : new Date(0);
+      message.sentAt =
+        date.getMonth() +
+        1 +
+        "/" +
+        date.getDate() +
+        "/" +
+        date.getFullYear() +
+        " - " +
+        date.getHours() +
+        ":" +
+        date.getMinutes();
       message.key = snapshot.key;
       this.setState({ messages: this.state.messages.concat(message) });
     });
@@ -22,8 +36,8 @@ class MessageList extends Component {
     this.messagesRef.push({
       content: newMessage,
       roomId: this.props.activeRoom,
-      sentAt: this.props.firebase.database.ServerValue.TIMESTAMP
-      //username: this.state.user
+      sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+      username: this.props.user
     });
 
     this.setState({ newMessage: "" });
@@ -52,27 +66,31 @@ class MessageList extends Component {
               </li>
             ))}
         </ul>
-        <div>
-          <form id="create-new-message" onSubmit={e => this.handleSubmit(e)}>
-            <input
-              id="newMessageInput"
-              type="text-field"
-              placeholder="Write your message here..."
-              value={this.state.newMessage}
-              onChange={this.handleChange.bind(this)}
-            />
-            <br />
-            <input
-              id="newMessageSubmit"
-              type="submit"
-              value="Send"
-              onClick={e => {
-                e.preventDefault();
-                this.createMessage(this.state.newMessage);
-              }}
-            />
-          </form>
-        </div>
+        {this.props.activeRoom ? (
+          <div>
+            <form id="create-new-message" onSubmit={e => this.handleSubmit(e)}>
+              <input
+                id="newMessageInput"
+                type="text-field"
+                placeholder="Write your message here..."
+                value={this.state.newMessage}
+                onChange={this.handleChange.bind(this)}
+              />
+              <br />
+              <input
+                id="newMessageSubmit"
+                type="submit"
+                value="Send"
+                onClick={e => {
+                  e.preventDefault();
+                  this.createMessage(this.state.newMessage);
+                }}
+              />
+            </form>
+          </div>
+        ) : (
+          ""
+        )}
       </main>
     );
   }
