@@ -32,7 +32,9 @@ class RoomList extends Component {
   }
 
   handleSubmit(e) {
+    e.preventDefault();
     this.createRoom(this.state.newRoomName);
+    //console.log(e, "e", this.state.newRoomName, "this.state.newRoomName");
   }
 
   //activeRoom(e) {
@@ -46,7 +48,7 @@ class RoomList extends Component {
           {this.state.rooms.map(room => (
             <li
               key={room.key}
-              onClick={() => this.props.setActiveRoom(room.key)}
+              onClick={() => this.props.setActiveRoom(room.name)}
             >
               {" "}
               {room.name}
