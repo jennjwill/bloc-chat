@@ -1,3 +1,7 @@
+## Bloc Chat
+
+Bloc Chat is a simple chat app. I built this as part of www.bloc.io 's web development program curriculum.
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
